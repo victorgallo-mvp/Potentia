@@ -27,10 +27,10 @@
       <span></span><span></span><span></span>
     </button>
     <nav class="nav__menu" id="menu">
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#onde-atua">Onde a IA atua</a>
-      <a href="#segmentos">Segmentos</a>
-      <a href="#cenarios">Cenários</a>
+      <a class="nav__link" href="#como-funciona">Como funciona</a>
+      <a class="nav__link" href="#onde-atua">Onde a IA atua</a>
+      <a class="nav__link" href="#segmentos">Segmentos</a>
+      <a class="nav__link" href="#cenarios">Cenários</a>
       <a class="btn btn--ghost" href="#conversa">Marcar uma conversa</a>
     </nav>
   </div>
@@ -77,14 +77,20 @@
         </div>
         <p class="section__aside">Talvez o problema não seja falta de pessoas, de clientes ou de dinheiro. Talvez seja capacidade operacional. Reconhece algum destes?</p>
       </div>
-      <ul class="checklist">
-        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span>Processos que dependem de uma pessoa</li>
-        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span>Leads que não recebem acompanhamento</li>
-        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span>Tarefas repetitivas que consomem horas da equipe</li>
-        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span>Informações espalhadas em vários lugares</li>
-        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span>Atendimentos que poderiam ser automatizados</li>
-        <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span>Decisões que demoram porque os dados não estão organizados</li>
+      <ul class="checklist" data-reveal>
+        <li><button type="button" class="check-item" aria-pressed="false"><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span><span>Processos que dependem de uma pessoa</span></button></li>
+        <li><button type="button" class="check-item" aria-pressed="false"><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span><span>Leads que não recebem acompanhamento</span></button></li>
+        <li><button type="button" class="check-item" aria-pressed="false"><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span><span>Tarefas repetitivas que consomem horas da equipe</span></button></li>
+        <li><button type="button" class="check-item" aria-pressed="false"><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span><span>Informações espalhadas em vários lugares</span></button></li>
+        <li><button type="button" class="check-item" aria-pressed="false"><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span><span>Atendimentos que poderiam ser automatizados</span></button></li>
+        <li><button type="button" class="check-item" aria-pressed="false"><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span><span>Decisões que demoram porque os dados não estão organizados</span></button></li>
       </ul>
+      <div class="checklist__result" id="checklist-result" hidden>
+        <p class="checklist__count" aria-live="polite"></p>
+        <a class="btn btn--primary" href="#conversa">Vale uma conversa
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -94,19 +100,27 @@
         <p class="eyebrow">O custo da ineficiência</p>
         <h2>Quanto sua empresa gasta todo mês para fazer o que uma IA faria?</h2>
         <p class="lead">Não é sobre substituir sua equipe. É sobre fazer sua equipe parar de gastar tempo com aquilo que uma máquina consegue fazer melhor.</p>
-        <a class="link" href="#conversa">Descobrir onde economizar</a>
       </div>
-      <div class="panel">
-        <p class="panel__label">Pensa no seu negócio</p>
-        <ol class="questions">
-          <li>Quantas vezes sua equipe responde às mesmas perguntas?</li>
-          <li>Quantos leads chegam e precisam ser qualificados manualmente?</li>
-          <li>Quantas informações precisam ser copiadas de um lugar para outro?</li>
-          <li>Quantos clientes precisam ser cobrados ou acompanhados?</li>
-          <li>Quantos relatórios são feitos manualmente?</li>
-          <li>Quantas tarefas dependem de alguém lembrar de fazê-las?</li>
-        </ol>
-        <p class="panel__foot">Agora imagine transformar parte disso em sistemas inteligentes que trabalham continuamente.</p>
+      <div class="panel calc" id="calc">
+        <p class="panel__label">Quanto custa por mês</p>
+        <div class="calc__field">
+          <div class="calc__row"><label for="c-horas">Horas por semana em tarefas repetitivas, por pessoa</label><output id="o-horas" for="c-horas">10 h</output></div>
+          <input id="c-horas" type="range" min="1" max="40" value="10" step="1">
+        </div>
+        <div class="calc__field">
+          <div class="calc__row"><label for="c-pessoas">Pessoas envolvidas</label><output id="o-pessoas" for="c-pessoas">3</output></div>
+          <input id="c-pessoas" type="range" min="1" max="30" value="3" step="1">
+        </div>
+        <div class="calc__field">
+          <div class="calc__row"><label for="c-custo">Custo médio da hora</label><output id="o-custo" for="c-custo">R$ 40</output></div>
+          <input id="c-custo" type="range" min="15" max="250" value="40" step="5">
+        </div>
+        <div class="calc__result">
+          <span class="calc__result-label">Sua empresa gasta cerca de</span>
+          <strong class="calc__value" id="calc-value" aria-live="polite">R$ 5.196</strong>
+          <span class="calc__result-label">por mês com trabalho que uma IA faria</span>
+        </div>
+        <p class="panel__foot">Estimativa: horas × pessoas × custo da hora × 4,33 semanas. <a class="calc__cta" href="#conversa">Quero recuperar esse valor</a></p>
       </div>
     </div>
   </section>
@@ -120,6 +134,7 @@
         </div>
         <p class="section__aside">Não implementamos IA por implementar. Toda solução nasce de um objetivo de negócio: mais produtividade, menor custo, mais velocidade, mais vendas, melhor atendimento.</p>
       </div>
+      <div class="steps__track" data-reveal><span class="steps__line" aria-hidden="true"></span></div>
       <ol class="steps">
         <li class="step">
           <span class="step__num">01</span>
@@ -151,29 +166,59 @@
       </div>
       <ul class="areas">
         <li class="area">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
-          <h3>Comercial</h3>
-          <p>Atender e qualificar leads, apoiar vendedores, acompanhar propostas.</p>
+          <button type="button" class="area__toggle" aria-expanded="false" aria-controls="area-1">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+            <span class="area__title">Comercial</span>
+            <svg class="area__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <p class="area__summary">Atender e qualificar leads, apoiar vendedores, acompanhar propostas.</p>
+          <div class="area__more" id="area-1">
+            <div><p class="area__example"><span>Exemplo</span>Um agente recebe o lead do Instagram, faz três perguntas de qualificação e cria a oportunidade no CRM com um resumo pronto para o vendedor.</p></div>
+          </div>
         </li>
         <li class="area">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H8l-4 4z"/></svg>
-          <h3>Atendimento</h3>
-          <p>Responder as mesmas perguntas, acompanhar clientes, encaminhar o que precisa de gente.</p>
+          <button type="button" class="area__toggle" aria-expanded="false" aria-controls="area-2">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H8l-4 4z"/></svg>
+            <span class="area__title">Atendimento</span>
+            <svg class="area__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <p class="area__summary">Responder as mesmas perguntas, acompanhar clientes, encaminhar o que precisa de gente.</p>
+          <div class="area__more" id="area-2">
+            <div><p class="area__example"><span>Exemplo</span>Cliente pergunta horário, status do pedido ou segunda via. A IA responde na hora e só chama uma pessoa quando o caso foge do padrão.</p></div>
+          </div>
         </li>
         <li class="area">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>
-          <h3>Operação</h3>
-          <p>Automatizar tarefas repetitivas, alimentar sistemas, integrar ferramentas.</p>
+          <button type="button" class="area__toggle" aria-expanded="false" aria-controls="area-3">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>
+            <span class="area__title">Operação</span>
+            <svg class="area__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <p class="area__summary">Automatizar tarefas repetitivas, alimentar sistemas, integrar ferramentas.</p>
+          <div class="area__more" id="area-3">
+            <div><p class="area__example"><span>Exemplo</span>Pedido aprovado dispara a nota, agenda a entrega e avisa o cliente, sem ninguém copiar dados de um sistema para outro.</p></div>
+          </div>
         </li>
         <li class="area">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
-          <h3>Financeiro</h3>
-          <p>Cobranças, conciliações e relatórios gerados sem trabalho manual.</p>
+          <button type="button" class="area__toggle" aria-expanded="false" aria-controls="area-4">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+            <span class="area__title">Financeiro</span>
+            <svg class="area__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <p class="area__summary">Cobranças, conciliações e relatórios gerados sem trabalho manual.</p>
+          <div class="area__more" id="area-4">
+            <div><p class="area__example"><span>Exemplo</span>Boletos vencidos geram lembrete automático no WhatsApp. A conciliação do dia chega em relatório pronto na manhã seguinte.</p></div>
+          </div>
         </li>
         <li class="area">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-          <h3>Processos internos</h3>
-          <p>Informações organizadas, análises prontas, decisões mais rápidas.</p>
+          <button type="button" class="area__toggle" aria-expanded="false" aria-controls="area-5">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            <span class="area__title">Processos internos</span>
+            <svg class="area__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <p class="area__summary">Informações organizadas, análises prontas, decisões mais rápidas.</p>
+          <div class="area__more" id="area-5">
+            <div><p class="area__example"><span>Exemplo</span>Documentos e planilhas espalhados viram uma base consultável. A equipe pergunta e recebe a resposta com a fonte.</p></div>
+          </div>
         </li>
       </ul>
     </div>
@@ -189,8 +234,14 @@
         <p class="section__aside">Não importa o segmento. Os mesmos gargalos aparecem em praticamente qualquer empresa.</p>
       </div>
       <ul class="grid-list">
-        <li>Clínica</li><li>Indústria</li><li>Loja</li><li>Imobiliária</li>
-        <li>Distribuidora</li><li>Empresa de serviços</li><li>Escritório</li><li>Operação comercial</li>
+        <li><button type="button" class="seg"><span class="seg__name">Clínica</span><span class="seg__hint">Confirmação de consultas feita à mão e faltas sem remarcação.</span></button></li>
+        <li><button type="button" class="seg"><span class="seg__name">Indústria</span><span class="seg__hint">Pedidos e ordens de produção copiados entre planilhas e ERP.</span></button></li>
+        <li><button type="button" class="seg"><span class="seg__name">Loja</span><span class="seg__hint">Perguntas repetidas sobre estoque, preço e entrega no WhatsApp.</span></button></li>
+        <li><button type="button" class="seg"><span class="seg__name">Imobiliária</span><span class="seg__hint">Leads dos portais esperando horas por uma resposta.</span></button></li>
+        <li><button type="button" class="seg"><span class="seg__name">Distribuidora</span><span class="seg__hint">Pedidos chegando por WhatsApp e digitados um a um no sistema.</span></button></li>
+        <li><button type="button" class="seg"><span class="seg__name">Empresa de serviços</span><span class="seg__hint">Propostas, follow-ups e cobranças dependendo de alguém lembrar.</span></button></li>
+        <li><button type="button" class="seg"><span class="seg__name">Escritório</span><span class="seg__hint">Documentos e prazos controlados em planilhas separadas.</span></button></li>
+        <li><button type="button" class="seg"><span class="seg__name">Operação comercial</span><span class="seg__hint">Vendedores gastando o dia qualificando quem nunca vai comprar.</span></button></li>
       </ul>
     </div>
   </section>
@@ -198,7 +249,7 @@
   <section class="manifesto" aria-label="Manifesto">
     <div class="wrap">
       <span class="manifesto__rule" aria-hidden="true"></span>
-      <p class="manifesto__text">Nosso trabalho não é colocar IA na sua empresa.<br><span>É usar IA para fazer sua empresa funcionar melhor.</span></p>
+      <p class="manifesto__text" data-reveal><span class="manifesto__line">Nosso trabalho não é colocar IA na sua empresa.</span><span class="manifesto__line manifesto__line--green">É usar IA para fazer sua empresa funcionar melhor.</span></p>
     </div>
   </section>
 
@@ -211,7 +262,12 @@
         </div>
         <p class="section__aside">Inteligência artificial não precisa transformar sua empresa inteira para mudar completamente a capacidade de uma operação.</p>
       </div>
-      <ul class="cases">
+      <div class="switch" role="group" aria-label="Ver cenários">
+        <button type="button" class="switch__btn is-active" data-view="before" aria-pressed="true">Antes</button>
+        <button type="button" class="switch__btn" data-view="after" aria-pressed="false">Com a Potentia</button>
+        <span class="switch__thumb" aria-hidden="true"></span>
+      </div>
+      <ul class="cases" id="cases" data-view="before">
         <li class="case">
           <div class="case__before">
             <p class="case__label">Antes</p>
@@ -287,8 +343,11 @@
           <label for="gargalo">Qual é o maior gargalo da sua operação hoje?</label>
           <textarea id="gargalo" name="gargalo" rows="3" placeholder="Ex.: os leads chegam pelo WhatsApp e demoram para ser respondidos"></textarea>
         </div>
-        <button class="btn btn--primary btn--block" type="submit">Marcar uma conversa
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        <button class="btn btn--primary btn--block btn--state" type="submit" id="form-submit">
+          <span class="btn__label">Marcar uma conversa</span>
+          <svg class="btn__icon btn__icon--arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          <svg class="btn__icon btn__icon--spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"/></svg>
+          <svg class="btn__icon btn__icon--check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
         </button>
         <p class="form__note" id="form-note">Ou chame direto no WhatsApp: <a href="#" data-wa-link>[NÚMERO]</a></p>
       </form>
@@ -296,6 +355,10 @@
   </section>
 
 </main>
+
+<a class="wa-float" href="#conversa" data-wa-link aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2z"/><path d="M8.5 9.5c.3 2.5 2.5 4.7 5 5l1.4-1.4-1.6-1a5 5 0 0 1-1-1L11 9.7 9.9 8.1z" fill="currentColor" stroke="none"/></svg>
+</a>
 
 <footer class="footer">
   <div class="wrap footer__grid">
