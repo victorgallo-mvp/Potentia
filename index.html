@@ -22,7 +22,7 @@
 
 <header class="nav" id="topo">
   <div class="wrap nav__inner">
-    <a class="wordmark" href="#topo" aria-label="Potentia, início">POTENT<span>IA</span></a>
+    <a class="brand" href="#topo" aria-label="Potentia, início"><img class="brand__mark" src="assets/logo-mark.png" alt="" width="468" height="389"><span class="wordmark">POTENT<span>IA</span></span></a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
       <span></span><span></span><span></span>
     </button>
@@ -40,7 +40,6 @@
 
   <section class="hero">
     <div class="wrap hero__inner">
-      <p class="eyebrow hero__eyebrow">Mapeamento de processos e automação com IA</p>
       <h1 class="hero__title">
         <span class="hero__line">Potenc<em>ia</em>lizamos negócios</span>
         <span class="hero__line">com inteligência artificial.</span>
@@ -314,43 +313,15 @@
           <li>Mostramos onde a IA gera resultado de verdade</li>
         </ul>
       </div>
-      <form class="form" id="form-conversa" novalidate>
-        <div class="form__row">
-          <div class="field">
-            <label for="nome">Nome</label>
-            <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome" required>
-          </div>
-          <div class="field">
-            <label for="empresa">Empresa</label>
-            <input id="empresa" name="empresa" type="text" autocomplete="organization" placeholder="Nome da empresa" required>
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="field">
-            <label for="whatsapp">WhatsApp</label>
-            <input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000" required>
-          </div>
-          <div class="field">
-            <label for="segmento">Segmento</label>
-            <select id="segmento" name="segmento" required>
-              <option value="">Selecione</option>
-              <option>Clínica</option><option>Indústria</option><option>Loja</option><option>Imobiliária</option>
-              <option>Distribuidora</option><option>Serviços</option><option>Escritório</option><option>Outro</option>
-            </select>
-          </div>
-        </div>
-        <div class="field">
-          <label for="gargalo">Qual é o maior gargalo da sua operação hoje?</label>
-          <textarea id="gargalo" name="gargalo" rows="3" placeholder="Ex.: os leads chegam pelo WhatsApp e demoram para ser respondidos"></textarea>
-        </div>
-        <button class="btn btn--primary btn--block btn--state" type="submit" id="form-submit">
-          <span class="btn__label">Marcar uma conversa</span>
-          <svg class="btn__icon btn__icon--arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-          <svg class="btn__icon btn__icon--spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"/></svg>
-          <svg class="btn__icon btn__icon--check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
-        </button>
-        <p class="form__note" id="form-note">Ou chame direto no WhatsApp: <a href="#" data-wa-link>[NÚMERO]</a></p>
-      </form>
+      <div class="cta-card">
+        <svg class="cta-card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2z"/><path d="M8.5 9.5c.3 2.5 2.5 4.7 5 5l1.4-1.4-1.6-1a5 5 0 0 1-1-1L11 9.7 9.9 8.1z" fill="currentColor" stroke="none"/></svg>
+        <p class="cta-card__title">Chame no WhatsApp</p>
+        <p class="cta-card__text">Conta em uma mensagem o que trava sua operação hoje. A gente responde e marca a conversa.</p>
+        <a class="btn btn--primary btn--block" href="#" data-wa-link data-wa-cta>Falar com a Potentia
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+        <p class="cta-card__note" id="wa-note"><span data-wa-number>[NÚMERO]</span> · <a href="mailto:[E-MAIL]">[E-MAIL]</a></p>
+      </div>
     </div>
   </section>
 
@@ -363,7 +334,7 @@
 <footer class="footer">
   <div class="wrap footer__grid">
     <div class="footer__brand">
-      <a class="wordmark" href="#topo" aria-label="Potentia, início">POTENT<span>IA</span></a>
+      <a class="brand" href="#topo" aria-label="Potentia, início"><img class="brand__mark" src="assets/logo-mark.png" alt="" width="468" height="389"><span class="wordmark">POTENT<span>IA</span></span></a>
       <p>Inteligência artificial para potencializar negócios.</p>
     </div>
     <div class="footer__col">
@@ -375,7 +346,7 @@
     </div>
     <div class="footer__col">
       <p class="footer__title">Contato</p>
-      <a href="#" data-wa-link>WhatsApp [NÚMERO]</a>
+      <a href="#" data-wa-link>WhatsApp <span data-wa-number>[NÚMERO]</span></a>
       <a href="mailto:[E-MAIL]">[E-MAIL]</a>
       <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram [@PERFIL]</a>
     </div>

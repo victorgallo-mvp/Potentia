@@ -112,9 +112,12 @@ h3 {
 .link::after { content: ""; width: 16px; height: 2px; background: currentColor; transition: width .18s ease; }
 .link:hover::after { width: 28px; }
 
+.brand { display: inline-flex; align-items: center; gap: 14px; color: var(--text); }
+.brand__mark { width: auto; height: 44px; transition: height .25s ease; }
+.nav.is-compact .brand__mark { height: 36px; }
 .wordmark {
   font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: 0.32em;
-  color: var(--text); white-space: nowrap;
+  color: var(--text); white-space: nowrap; line-height: 1; padding-top: 2px;
 }
 .wordmark span { color: var(--green); }
 
@@ -169,7 +172,6 @@ h3 {
   display: flex; flex-direction: column; justify-content: center;
   padding-block: clamp(64px, 10vh, 120px);
 }
-.hero__eyebrow { margin-bottom: 28px; }
 .hero__title {
   font-family: var(--display); font-weight: 700;
   font-size: clamp(38px, 5.2vw, 76px);
@@ -181,7 +183,7 @@ h3 {
 @media (max-width: 900px) { .hero__line { display: inline; } }
 .hero__lead { font-size: clamp(18px, 1.6vw, 22px); color: var(--muted); margin-bottom: 40px; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 16px; }
-.hero__eyebrow, .hero__title, .hero__lead, .hero__actions { max-width: min(820px, 62%); }
+.hero__title, .hero__lead, .hero__actions { max-width: min(820px, 62%); }
 
 .hero__mark {
   position: absolute; right: var(--gutter); top: 50%; transform: translateY(-50%);
@@ -203,11 +205,10 @@ h3 {
 
 /* hero load sequence */
 @media (prefers-reduced-motion: no-preference) {
-  .hero__eyebrow, .hero__line, .hero__lead, .hero__actions {
+  .hero__line, .hero__lead, .hero__actions {
     opacity: 0; transform: translateY(18px);
     animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards;
   }
-  .hero__eyebrow { animation-delay: .05s; }
   .hero__line:nth-child(1) { animation-delay: .15s; }
   .hero__line:nth-child(2) { animation-delay: .27s; }
   .hero__lead { animation-delay: .42s; }
@@ -462,37 +463,18 @@ h3 {
 .bullets li { display: flex; align-items: center; gap: 14px; }
 .bullets li::before { content: ""; flex: none; width: 6px; height: 6px; background: var(--green); border-radius: 1px; }
 
-.form {
-  display: flex; flex-direction: column; gap: 18px;
-  padding: clamp(24px, 3vw, 40px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+.cta-card {
+  display: flex; flex-direction: column; gap: 16px;
+  padding: clamp(28px, 3.5vw, 44px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
 }
-.form__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.field { display: flex; flex-direction: column; gap: 8px; }
-.field label { font-size: 13px; font-weight: 600; color: var(--muted); }
-.field input, .field select, .field textarea {
-  width: 100%; min-height: 52px; padding: 0 16px;
-  background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius);
-  color: var(--text); font-family: inherit; font-size: 16px;
-  transition: border-color .18s ease;
-}
-.field textarea { padding: 14px 16px; line-height: 1.5; resize: vertical; }
-.field select { appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A3A3A3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 16px center; padding-right: 44px; }
-.field input::placeholder, .field textarea::placeholder { color: #666; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--green); }
-.field.is-invalid input, .field.is-invalid select { border-color: #D9534F; }
-.form__note { font-size: 13px; color: var(--dim); text-align: center; }
-.form__note a { color: var(--green); font-weight: 600; }
-.form__status { font-size: 14px; color: var(--green); text-align: center; }
-.btn--state { position: relative; }
-.btn__icon { display: none; }
-.btn--state[data-state="idle"] .btn__icon--arrow { display: block; }
-.btn--state[data-state="sending"] .btn__icon--spin { display: block; animation: spin .8s linear infinite; }
-.btn--state[data-state="done"] .btn__icon--check { display: block; }
-.btn--state[data-state="sending"] { pointer-events: none; opacity: .85; }
-.btn--state[data-state="done"] { background: var(--green-dark); color: var(--text); }
-@keyframes spin { to { transform: rotate(360deg); } }
+.cta-card__icon { width: 40px; height: 40px; fill: none; stroke: var(--green); stroke-width: 1.8; stroke-linejoin: round; }
+.cta-card__title { font-family: var(--display); font-weight: 700; font-size: 28px; line-height: 1.1; letter-spacing: -0.01em; }
+.cta-card__text { color: var(--muted); }
+.cta-card .btn { margin-top: 8px; }
+.cta-card__note { font-size: 14px; color: var(--dim); text-align: center; }
+.cta-card__note a { color: var(--green); }
+.cta-card__note a:hover { text-decoration: underline; }
+.cta-card__warn { font-size: 13px; color: #E0A800; text-align: center; }
 
 /* ==========================================================
    WhatsApp flutuante (mobile)
@@ -540,7 +522,7 @@ h3 {
   .wa-float { display: grid; }
   .switch { display: grid; width: 100%; }
   .grid-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hero__eyebrow, .hero__title, .hero__lead, .hero__actions { max-width: none; }
+  .hero__title, .hero__lead, .hero__actions { max-width: none; }
   .hero__mark { right: -12vw; top: auto; bottom: -6vw; transform: none; width: 56vw; opacity: .22; }
   .hero__strip-inner { flex-direction: column; align-items: flex-start; }
 
@@ -561,9 +543,11 @@ h3 {
   .checklist { grid-template-columns: 1fr; }
   .check-item { font-size: 17px; padding: 18px 0; }
   .checklist__result .btn { width: 100%; }
-  .form__row { grid-template-columns: 1fr; }
   .hero__actions .btn { width: 100%; }
-  .hero__inner { min-height: 0; padding-block: 72px 56px; }
+  .hero__inner { min-height: 0; padding-block: 64px 56px; }
+  .brand__mark { height: 36px; }
+  .brand { gap: 10px; }
+  .wordmark { font-size: 17px; }
   .seg { padding: 18px 16px; min-height: 64px; }
   .seg__name { font-size: 16px; }
   .seg__hint { font-size: 13px; }

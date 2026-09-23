@@ -13,16 +13,40 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-/* ---------- Links diretos do WhatsApp ---------- */
+/* ---------- Links do WhatsApp ---------- */
 const waBase = CONFIG.whatsappNumber ? `https://wa.me/${CONFIG.whatsappNumber}` : '';
+if (waBase) {
+  $$('[data-wa-number]').forEach((el) => { el.textContent = formatNumber(CONFIG.whatsappNumber); });
+}
+
+function buildMessage() {
+  const lines = [CONFIG.whatsappGreeting];
+  const marked = (typeof recognized === 'function' ? recognized() : []).map((b) => b.textContent.trim());
+  if (marked.length) lines.push('', 'Gargalos que reconheci no site:', ...marked.map((t) => `- ${t}`));
+  if (typeof calcTouched !== 'undefined' && calcTouched) {
+    lines.push('', `Estimativa de custo da ineficiência: ${$('#calc-value').textContent}/mês`);
+  }
+  return lines.join('\n');
+}
+
 $$('[data-wa-link]').forEach((a) => {
-  if (!waBase) return;
-  a.href = `${waBase}?text=${encodeURIComponent(CONFIG.whatsappGreeting)}`;
   a.target = '_blank';
   a.rel = 'noopener';
-  if (a.textContent.includes('[NÚMERO]')) {
-    a.textContent = a.textContent.replace('[NÚMERO]', formatNumber(CONFIG.whatsappNumber));
-  }
+  a.addEventListener('click', (ev) => {
+    if (!waBase) {
+      ev.preventDefault();
+      const note = $('#wa-note');
+      if (note && !$('.cta-card__warn')) {
+        const warn = document.createElement('p');
+        warn.className = 'cta-card__warn';
+        warn.textContent = 'Número do WhatsApp ainda não configurado em script.js.';
+        note.before(warn);
+      }
+      console.info(buildMessage());
+      return;
+    }
+    a.href = `${waBase}?text=${encodeURIComponent(buildMessage())}`;
+  });
 });
 
 function formatNumber(n) {
@@ -177,69 +201,4 @@ if (sw && cases) {
       b.setAttribute('aria-pressed', String(active));
     });
   }));
-}
-
-/* ---------- Formulário: envia a conversa pelo WhatsApp ---------- */
-const form = $('#form-conversa');
-const submitBtn = $('#form-submit');
-if (form && submitBtn) {
-  submitBtn.dataset.state = 'idle';
-  const label = $('.btn__label', submitBtn);
-  const setBtn = (state, text) => { submitBtn.dataset.state = state; label.textContent = text; };
-
-  form.addEventListener('submit', (ev) => {
-    ev.preventDefault();
-
-    let valid = true;
-    $$('[required]', form).forEach((el) => {
-      const ok = el.value.trim() !== '';
-      el.closest('.field').classList.toggle('is-invalid', !ok);
-      if (!ok) valid = false;
-    });
-    if (!valid) { $('.is-invalid input, .is-invalid select', form)?.focus(); return; }
-
-    const data = Object.fromEntries(new FormData(form).entries());
-    const lines = [
-      'Olá, quero marcar uma conversa com a Potentia.', '',
-      `Nome: ${data.nome}`, `Empresa: ${data.empresa}`, `WhatsApp: ${data.whatsapp}`, `Segmento: ${data.segmento}`,
-    ];
-    if (data.gargalo?.trim()) lines.push('', `Maior gargalo hoje: ${data.gargalo.trim()}`);
-
-    const marked = recognized().map((b) => b.textContent.trim());
-    if (marked.length) lines.push('', 'Gargalos que reconheci no site:', ...marked.map((t) => `- ${t}`));
-
-    if (calcTouched) lines.push('', `Estimativa de custo da ineficiência: ${$('#calc-value').textContent}/mês`);
-
-    const text = encodeURIComponent(lines.join('\n'));
-
-    setBtn('sending', 'Abrindo o WhatsApp...');
-    setTimeout(() => {
-      if (waBase) {
-        window.open(`${waBase}?text=${text}`, '_blank', 'noopener');
-        setBtn('done', 'Mensagem pronta');
-        setStatus('Abrimos o WhatsApp com sua mensagem pronta. É só enviar.');
-        form.reset();
-      } else {
-        setBtn('done', 'Mensagem gerada');
-        setStatus('Número do WhatsApp ainda não configurado em script.js. Mensagem gerada no console.');
-        console.info(decodeURIComponent(text));
-      }
-      setTimeout(() => setBtn('idle', 'Marcar uma conversa'), 4000);
-    }, 700);
-  });
-
-  $$('[required]', form).forEach((el) =>
-    el.addEventListener('input', () => el.closest('.field').classList.remove('is-invalid'))
-  );
-}
-
-function setStatus(msg) {
-  let el = $('.form__status', form);
-  if (!el) {
-    el = document.createElement('p');
-    el.className = 'form__status';
-    el.setAttribute('role', 'status');
-    form.insertBefore(el, $('.form__note', form));
-  }
-  el.textContent = msg;
 }
