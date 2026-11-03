@@ -4,7 +4,7 @@
    ========================================================== */
 const CONFIG = {
   // Somente dígitos, com DDI e DDD. Ex.: '5531999999999'
-  whatsappNumber: '5537998363048',
+  whatsappNumber: '5537999688170',
   // Mensagem inicial quando alguém clica no link direto do WhatsApp
   whatsappGreeting: 'Olá, quero marcar uma conversa com a Potentia.',
 };
